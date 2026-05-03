@@ -18,6 +18,17 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function () {
+    // Dashboard redirect (replaces Breeze stub)
+    Route::get('/dashboard', function () {
+        if (auth()->user()->isSuperAdmin()) {
+            return redirect()->route('super-admin.dashboard');
+        }
+        return redirect()->route('operator.dashboard');
+    })->name('dashboard');
+
+    // Super Admin Dashboard
+    Route::get('/super-admin/dashboard', [SuperAdminDashboard::class, '__invoke'])->name('super-admin.dashboard');
+
     Route::middleware('can:viewAny,App\Models\Tenant')->prefix('super-admin')->name('super-admin.')->group(function () {
         Route::get('/tenants', [TenantController::class, 'index'])->name('tenants.index');
         Route::get('/tenants/create', [TenantController::class, 'create'])->name('tenants.create');
@@ -59,5 +70,16 @@ Route::middleware('auth')->group(function () {
         Route::post('/tagihan/{tagihan}/bayar', [PembayaranController::class, 'store'])->name('pembayaran.store');
         Route::get('/pembayaran/{pembayaran}/cetak', [PembayaranController::class, 'cetak'])->name('pembayaran.cetak');
         Route::get('/pembayaran/{pembayaran}/cetak-ulang', [PembayaranController::class, 'cetakUlang'])->name('pembayaran.cetak-ulang');
+
+        // Operator Dashboard
+        Route::get('/dashboard/operator', [OperatorDashboard::class, '__invoke'])->name('operator.dashboard');
+
+        // Laporan
+        Route::get('/laporan/pemakaian', [LaporanController::class, 'pemakaian'])->name('laporan.pemakaian');
+        Route::get('/laporan/pendapatan', [LaporanController::class, 'pendapatan'])->name('laporan.pendapatan');
+        Route::get('/laporan/tunggakan', [LaporanController::class, 'tunggakan'])->name('laporan.tunggakan');
+        Route::get('/laporan/export/pemakaian', [LaporanController::class, 'exportPemakaian'])->name('laporan.export.pemakaian');
+        Route::get('/laporan/export/pendapatan', [LaporanController::class, 'exportPendapatan'])->name('laporan.export.pendapatan');
+        Route::get('/laporan/export/tunggakan', [LaporanController::class, 'exportTunggakan'])->name('laporan.export.tunggakan');
     });
 });

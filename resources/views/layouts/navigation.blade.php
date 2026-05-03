@@ -29,6 +29,9 @@
                             <x-nav-link :href="route('pembayaran.index')" :active="request()->routeIs('pembayaran.*')">
                                 Pembayaran
                             </x-nav-link>
+                            <x-nav-link :href="route('laporan.pemakaian')" :active="request()->routeIs('laporan.*')">
+                                Laporan
+                            </x-nav-link>
                         @endif
                     @endauth
                 </div>
@@ -99,6 +102,9 @@
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('pembayaran.index')" :active="request()->routeIs('pembayaran.*')">
                         Pembayaran
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('laporan.pemakaian')" :active="request()->routeIs('laporan.*')">
+                        Laporan
                     </x-responsive-nav-link>
                 @endif
             @endauth

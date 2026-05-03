@@ -5,10 +5,8 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
 Alpine.start();
-// Dynamically load Chart.js after Alpine initialization
-import("chart.js/auto").then((ChartModule) => {
-  const Chart = ChartModule?.default ?? ChartModule;
-  window.Chart = Chart;
-}).catch((err) => {
-  console.error("Chart.js failed to load", err);
-});
+
+import Chart from 'chart.js/auto';
+
+// Make Chart.js available globally for Blade views
+window.Chart = Chart;
