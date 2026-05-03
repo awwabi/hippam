@@ -6,6 +6,9 @@ use App\Http\Controllers\Operator\TagihanController;
 use App\Http\Controllers\Operator\PembayaranController;
 use App\Http\Controllers\SuperAdmin\OperatorController;
 use App\Http\Controllers\SuperAdmin\TenantController;
+use App\Http\Controllers\Operator\DashboardController as OperatorDashboard;
+use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboard;
+use App\Http\Controllers\Operator\LaporanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
